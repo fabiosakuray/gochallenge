@@ -1,0 +1,35 @@
+<!-- #######  YAY, I AM THE SOURCE EDITOR! #########-->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" >
+</head>
+<body>
+<script>
+console.clear()
+</script>
+<h1 style="color: #5e9ca0;">Reset Password</h1>
+Link to reset password in your email box.
+
+<form action="/sendEmail" method="POST">
+    <label for="timelimit">Time limit to password reset:</label>
+    <input type="text" name="timelimit"  value={{.StrD}} readonly><br />
+    <label for="login">Login:</label>
+    <input type="text" name="lo" id="login" placeholder="login">
+    <input onclick="clearConsole()" type="submit">
+</form>
+
+<form action="/"  method="POST">
+ <!-- <input name="reset" value="reset">-->
+  <button onclick="clearConsole()" id="return" type="submit">Cancel</button>
+</form>
+
+<script>
+   function clearConsole() {
+      console.clear();
+   }
+</script>
+
+</body>
+</html>

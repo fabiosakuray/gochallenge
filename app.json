@@ -1,0 +1,10 @@
+{
+  "name": "Gollang Example",
+  "description": "Go Getting Started Example App (User Creation, Login/Auth Process)",
+  "keywords": [
+    "auth process",
+    "go",
+    "google auth",
+    "password recover"
+  ]
+}

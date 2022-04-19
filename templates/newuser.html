@@ -1,0 +1,47 @@
+<!-- #######  YAY, I AM THE SOURCE EDITOR! #########-->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" >
+</head>
+<body>
+<h1 style="color: #5e9ca0;">Golang Challenge</h1><p></p>
+<h2 style="color: #5e9ca0;">New User</h2>
+
+<p>&nbsp;</p>
+
+<form action="/procNewUser" method="POST" >
+    <label for="login">Login:</label><br />
+    <input type="text" name="lo" id="login" placeholder="login">
+    
+   <br> <label for="password">Password</label><br />
+    <input type="text" name="pa" id="password" placeholder="password">  
+
+    <br><label for="UserName">User Name</label><br />
+    <input type="text" name="UserName" id="UserName" placeholder="User Name" >
+    <!---->
+    <br><label for="UserEmail">Email</label> <br />
+    <input type="email" name="UserEmail" id="UserEmail" placeholder="Email" >
+    <!---->
+    <br><label for="UserAddress">Address</label> <br />
+    <input type="text" name="UserAddress" id="UserAddress"  placeholder="Address" >    
+    <!--  -->
+    <br><label for="UserTelephone">Telephone</label> <br />
+    <input type="text" name="UserTelephone" id="UserTelephone" placeholder="Telephone"> 
+	<!--  -->   
+    <br><br />
+    <input onclick="clearConsole()" type="submit">
+</form>
+
+-<form action="/index" method="POST">
+    <button name="return" id="return" type="submit">Return</button>
+</form>
+<script>
+   function clearConsole() {
+      console.clear();
+   }
+</script>
+
+</body>
+</html>

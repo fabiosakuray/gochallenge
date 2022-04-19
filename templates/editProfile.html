@@ -1,0 +1,48 @@
+<!-- #######  YAY, I AM THE SOURCE EDITOR! #########-->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" >
+</head>
+<body>
+<script>
+console.clear()
+</script>
+<h1 style="color: #5e9ca0;">Golang Challenge</h1><p></p>
+<h2 style="color: #5e9ca0;">Edit User Profile</h2>
+
+<p>&nbsp;</p>
+
+<form action="/editData" method="POST">
+    <label for="UserName">User Name</label>
+    <input type="text" name="UserName"  value={{.UserName}} >
+    <!--id="UserName" placeholder="First Name" -->
+
+    <label for="UserEmail">Email</label> 
+    <input type="email" name="UserEmail"  value={{.UserEmail}} >
+    <!--id="UserEmail" placeholder="User Email" -->
+
+    <label for="UserAddress">Address</label> 
+    <input type="text" name="UserAddress"  value={{.UserAddress}}  >    
+    <!--id="UserAddress"placeholder="Address" -->
+
+    <label for="UserTelephone">Telephone</label> 
+    <input type="text" name="UserTelephone"  value={{.UserTelephone}}>     
+    <!-- id="UserTelephone" placeholder="Telephone" -->
+
+    <input onclick="clearConsole()" type="submit">
+</form>
+
+<form action="/menuEdit" method="POST">
+  <button id="reset" type="submit">Return to Edit Menu without save</button>
+</form>
+
+<script>
+   function clearConsole() {
+      console.clear();
+   }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+package googlelogin
+
+func handleGoogleLogin(w http.ResponseWriter, r *http.Request) {
+    init_var()
+    oauthStateString = Lib.RandonString(15)
+    url := googleOauthConfig.AuthCodeURL(oauthStateString)
+
+    http.Redirect(w, r, url, http.StatusTemporaryRedirect)
+}
