@@ -76,7 +76,8 @@ func main() {
     http.HandleFunc("/handleGoogleUserInfo",GoogleLogin.HandleGoogleUserInfo)
     
     
-    http.ListenAndServe(":8080",nil)
+    http.ListenAndServe(":",nil)
+    // :8080
     
 }
 
