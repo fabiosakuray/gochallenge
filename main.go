@@ -14,11 +14,11 @@ import (
             "html/template"
             "strings"
             "strconv"
-           GoogleLogin "goChallenge/googlelogin"
+           GoogleLogin "gochallenge/googlelogin"
             _ "github.com/go-sql-driver/mysql"
             "time"
-            Session "goChallenge/sessioncontrol"
-            Lib "goChallenge/lib"
+            Session "gochallenge/sessioncontrol"
+            Lib "gochallenge/lib"
             
 )
 
