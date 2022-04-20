@@ -6,7 +6,7 @@ import (
             "encoding/json"
             "net/http"
             "fmt"
-            Lib "goChallenge/lib"
+            Lib "gochallenge/lib"
             //"log"
             "html/template"
             "io/ioutil"
