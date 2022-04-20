@@ -1,4 +1,4 @@
-module goChallenge
+module gochallenge
 
 go 1.17
 
