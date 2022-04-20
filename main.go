@@ -10,6 +10,8 @@ import (
             "net/http"
             "net/smtp"
             "log"
+            "os"
+            "fmt"
             "math/rand"
             "html/template"
             "strings"
