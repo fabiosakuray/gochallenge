@@ -20,6 +20,13 @@ func DBConn() (db *sql.DB) {
 }
 
 // Open Posgres connection
+https://github.com/reagent/heroku-go-db-example/blob/master/main.go
+https://devcenter.heroku.com/articles/getting-started-with-go#use-a-database
+https://www.tutorialspoint.com/postgresql/postgresql_create_table.htm
+
+https://leanpub.com/howtodeployagowebapptoheroku101/read
+https://devcenter.heroku.com/categories/go-support
+https://devcenter.heroku.com/articles/go-sessions
 func DBConn()(db *sql.DB)
 {
     db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
