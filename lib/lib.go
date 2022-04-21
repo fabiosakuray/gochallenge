@@ -19,6 +19,33 @@ func DBConn() (db *sql.DB) {
     return db
 }
 
+// Open Posgres connection
+func DBConn()(db *sql.DB)
+{
+    db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
+    if err != nil {
+        log.Fatalf("Error opening database: %q", err)
+    }
+    
+    _, err = db.Exec(`
+    CREATE TABLE IF NOT EXISTS user_table (
+      id       SERIAL,
+      username VARCHAR(64) NOT NULL UNIQUE,
+      CHECK (CHAR_LENGTH(TRIM(username)) > 0)
+    );`)
+    
+      user_id    serial PRIMARY KEY,
+  user_login 		VARCHAR(15) NOT NULL,
+  user_pass 		VARCHAR(70) NOT NULL,
+  user_name 		VARCHAR(40) NOT NULL,
+  user_email 		VARCHAR(40) NOT NULL,
+  user_address      VARCHAR(100),
+  user_telephone    varchar(20),
+  PRIMARY KEY(user_login)
+    
+    return db
+}
+
 
 /* Randon String generator */
 func RandonString(length int) string {
