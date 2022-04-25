@@ -5,9 +5,12 @@ import (
        "database/sql"
        "math/rand"
        "time"
+            "log"
+            "os"
+	_ "github.com/lib/pq"
 )
-/* Open db connection */
-func DBConn() (db *sql.DB) {
+/* Open mysql db connection */
+/*func DBConn() (db *sql.DB) {
     dbDriver := "mysql"
     dbUser := "testedb"
     dbPass := "testeDB#12"
@@ -18,17 +21,10 @@ func DBConn() (db *sql.DB) {
     }
     return db
 }
+*/
 
 // Open Posgres connection
-https://github.com/reagent/heroku-go-db-example/blob/master/main.go
-https://devcenter.heroku.com/articles/getting-started-with-go#use-a-database
-https://www.tutorialspoint.com/postgresql/postgresql_create_table.htm
-
-https://leanpub.com/howtodeployagowebapptoheroku101/read
-https://devcenter.heroku.com/categories/go-support
-https://devcenter.heroku.com/articles/go-sessions
-func DBConn()(db *sql.DB)
-{
+func DBConn()(db *sql.DB){
     db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
     if err != nil {
         log.Fatalf("Error opening database: %q", err)
@@ -36,22 +32,26 @@ func DBConn()(db *sql.DB)
     
     _, err = db.Exec(`
     CREATE TABLE IF NOT EXISTS user_table (
-      id       SERIAL,
-      username VARCHAR(64) NOT NULL UNIQUE,
-      CHECK (CHAR_LENGTH(TRIM(username)) > 0)
+	user_id    serial PRIMARY KEY,
+	user_login 		VARCHAR(15) UNIQUE  NOT NULL,
+	user_pass 		VARCHAR(70) NOT NULL,
+	user_name 		VARCHAR(40) NOT NULL,
+	user_email 		VARCHAR(40) NOT NULL,
+	user_address      VARCHAR(100),
+	user_telephone    varchar(20),
     );`)
     
-      user_id    serial PRIMARY KEY,
-  user_login 		VARCHAR(15) NOT NULL,
-  user_pass 		VARCHAR(70) NOT NULL,
-  user_name 		VARCHAR(40) NOT NULL,
-  user_email 		VARCHAR(40) NOT NULL,
-  user_address      VARCHAR(100),
-  user_telephone    varchar(20),
-  PRIMARY KEY(user_login)
+    _, err = db.Exec(`
+    CREATE TABLE IF NOT EXISTS reset_table (
+	user_id 	int NOT NULL,
+	res_key 	int NOT NULL,
+	res_exp_date varchar(100) NOT NULL,
+	PRIMARY KEY(res_key )
+    );`)
     
     return db
 }
+
 
 
 /* Randon String generator */

@@ -116,7 +116,7 @@ func newPass (w http.ResponseWriter, r *http.Request){
     var id int
     var deadline string
     
-    err := db.QueryRow("SELECT user_id, res_exp_date FROM reset_table where res_key = ?", key).Scan(&id,&deadline)
+    err := db.QueryRow("SELECT user_id, res_exp_date FROM reset_table where res_key = $1", key).Scan(&id,&deadline)
     
     if err != nil {
            panic(err.Error())
@@ -145,13 +145,14 @@ func processNewPass (w http.ResponseWriter, r *http.Request){
     id := tag.UserId
     tmp_user_pass,_ := Lib.HashPassword(npa)
     db := Lib.DBConn()
-    insForm, err := db.Prepare("UPDATE user_table SET user_pass=? WHERE user_id=?")
-            
+     db.QueryRow("UPDATE user_table SET user_pass=$1 WHERE user_id=$2",tmp_user_pass, id)
+     /*
     if err != nil {
                panic(err.Error())
     }
+    */
     
-    insForm.Exec(tmp_user_pass, id )
+    //insForm.Exec(tmp_user_pass, id )
 
     defer db.Close()
     tpl.ExecuteTemplate(w,"newPassSuccess.html",nil)
@@ -194,7 +195,7 @@ func sendEmail (w http.ResponseWriter, r *http.Request){
 
     // verify if exists
     var exists bool
-    err := db.QueryRow("SELECT EXISTS(SELECT user_id FROM user_table where user_login = ?)",lo).Scan(&exists)
+    err := db.QueryRow("SELECT EXISTS(SELECT user_id FROM user_table where user_login = $1)",lo).Scan(&exists)
     if err != nil {
         panic(err.Error())
     } 
@@ -203,7 +204,7 @@ func sendEmail (w http.ResponseWriter, r *http.Request){
             return
     }
 
-    err = db.QueryRow("SELECT user_id, user_email FROM user_table where user_login = ?", lo).Scan(&id,&email)
+    err = db.QueryRow("SELECT user_id, user_email FROM user_table where user_login = $1", lo).Scan(&id,&email)
     if err != nil {
            panic(err.Error())
      }
@@ -216,7 +217,7 @@ func sendEmail (w http.ResponseWriter, r *http.Request){
 	    rand.Seed(time.Now().UnixNano())
             key := rand.Intn(max - min) + min
             
-            url := "localhost:8080/newPass/"+strconv.Itoa(key)
+            url := "https://mysterious-beyond-77658.herokuapp.com/newPass/"+strconv.Itoa(key)
             
             currentTime := time.Now()
 
@@ -226,11 +227,16 @@ func sendEmail (w http.ResponseWriter, r *http.Request){
             
             send(url, email, currentTime.Format("2006-01-02 03:04:05 PM"), deadline.Format("2006-01-02 03:04:05 PM"))
             
-            insForm, err2 := db.Prepare("INSERT into reset_table (user_id, res_key, res_exp_date ) VALUES(?,?,?)")
-                if err2 != nil {
-                    panic(err2.Error())
-                }
-            insForm.Exec(id, key,deadlineStr)
+            
+	//userSql := "INSERT into reset_table (user_id, res_key, res_exp_date ) VALUES($1,$2,$3)"
+    	db.QueryRow("INSERT into reset_table (user_id, res_key, res_exp_date ) VALUES($1,$2,$3)", id, key,deadlineStr)
+/*
+        if err != nil {
+            panic(err.Error())
+        }            
+            
+*/
+           // insForm.Exec(id, key,deadlineStr)
 
     }
     defer db.Close()
@@ -247,7 +253,7 @@ func send(body string , to string , currentTime string , deadline string) {
 		"To: " + to + "\n" +
 		"Subject: Reset Password\n\n" +
 		"Copy the link below in web browser\n\n" +
-		body + "\n\nLink sent in: " + currentTime +
+		body + "\n\nLink sent at: " + currentTime +
         ". Time limit to password reset (expires in 15 minutes): " + deadline +"."
 
 	err := smtp.SendMail("smtp.gmail.com:587",
@@ -284,11 +290,22 @@ func procNewUser (w http.ResponseWriter, r *http.Request){
     if len(newUser.UserLogin)>0 && len(tmp_user_pass)>0{
             newUser.UserPass,_ = Lib.HashPassword(tmp_user_pass)
             db := Lib.DBConn()            
-            insForm, err := db.Prepare("INSERT into user_table (user_login, user_pass,user_name,user_email,user_address,user_telephone) VALUES(?,?,?,?,?,?)")
+/*            insForm, err := db.Prepare("INSERT into user_table (user_login, user_pass,user_name,user_email,user_address,user_telephone) VALUES(?,?,?,?,?,?)")
                 if err != nil {
                     panic(err.Error())
                 }
-            insForm.Exec(newUser.UserLogin, newUser.UserPass, newUser.UserName, newUser.UserEmail, newUser.UserAddress,newUser.UserTelephone)
+            insForm.Exec(newUser.UserLogin, newUser.UserPass, newUser.UserName, newUser.UserEmail, newUser.UserAddress,newUser.UserTelephone)*/
+            //  err :=
+               db.QueryRow("INSERT INTO user_table (user_login, user_pass, user_name, user_email, user_address, user_telephone) VALUES($1, $2, $3, $4, $5, $6)", newUser.UserLogin, newUser.UserPass, newUser.UserName, newUser.UserEmail, newUser.UserAddress,newUser.UserTelephone)
+               
+              
+               
+               
+	/*if err != nil {
+	        return 
+	  }
+            */
+	//log.Println(">> procnewuser: insform:", insForm)
 
             defer db.Close()
             http.Redirect(w, r, "/", http.StatusSeeOther)
@@ -303,19 +320,20 @@ func editData (w http.ResponseWriter, r *http.Request){
     tag.UserAddress= r.FormValue("UserAddress")  
     tag.UserTelephone= r.FormValue("UserTelephone") 
     db := Lib.DBConn()
-    
-    insForm, err := db.Prepare("UPDATE user_table SET user_name=?, user_email=?, user_address=?,user_telephone=? WHERE user_id=?")
-        if err != nil {
+    userSql := "UPDATE user_table SET user_name=$1, user_email=$2, user_address=$3,user_telephone=$4 WHERE user_id=$5"
+    _ = db.QueryRow(userSql, tag.UserName, tag.UserEmail,tag.UserAddress, tag.UserTelephone, tag.UserId)
+    //insForm, err := db.Prepare("UPDATE user_table SET user_name=?, user_email=?, user_address=?,user_telephone=? WHERE user_id=?")
+/*        if err != nil {
             panic(err.Error())
-        }
-     insForm.Exec(tag.UserName, tag.UserEmail,tag.UserAddress, tag.UserTelephone, tag.UserId )
+        }*/
+    // insForm.Exec(tag.UserName, tag.UserEmail,tag.UserAddress, tag.UserTelephone, tag.UserId )
      defer db.Close()
      tpl.ExecuteTemplate(w,"menuEdit.html",nil)
 }
 
 
 func login (w http.ResponseWriter, r *http.Request){
-    if r.Method!="POST"{
+    if r.Method!="GET"{
         http.Redirect(w,r,"/",http.StatusSeeOther)
         return
     }
@@ -334,21 +352,24 @@ func login (w http.ResponseWriter, r *http.Request){
     db := Lib.DBConn()    
     // verify if exists
     var exists bool
-    err := db.QueryRow("SELECT EXISTS(SELECT user_id FROM user_table where user_login = ?)",user_login).Scan(&exists)
-    if err != nil {
-        panic(err.Error())
-    } 
-    if exists==false{
-            tpl.ExecuteTemplate(w,"errorUserNoReg.html",nil)
-            return
-    } 
-    
-    // query
-    err = db.QueryRow("SELECT user_id,user_login,user_pass,user_name, user_email,user_address,user_telephone FROM user_table where user_login = ?", user_login).Scan(&tag.UserId, &tag.UserLogin, &tag.UserPass, &tag.UserName, &tag.UserEmail, &tag.UserAddress,&tag.UserTelephone)
+    userSql := "SELECT exists (SELECT user_id from user_table WHERE user_login = $1)"
+    err := db.QueryRow(userSql, user_login).Scan(&exists)
     if err != nil {
         panic(err.Error()) 
     }
+    if exists==false{
+            tpl.ExecuteTemplate(w,"errorUserNoReg.html",nil)
+            return
+    }
+     // query
     
+    userSql = "SELECT user_id, user_pass, user_name, user_email,user_address,user_telephone FROM user_table WHERE user_login = $1"
+    err = db.QueryRow(userSql, user_login).Scan(&tag.UserId,&tag.UserPass,&tag.UserName, &tag.UserEmail, &tag.UserAddress, &tag.UserTelephone)
+ 
+    if err != nil {
+        panic(err.Error())
+    } 
+
     match := Lib.CheckPasswordHash(tmp_user_pass, tag.UserPass)
    
     if !match {   
