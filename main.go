@@ -78,8 +78,6 @@ func main() {
     http.HandleFunc("/handleGoogleUserInfo",GoogleLogin.HandleGoogleUserInfo)
    // http.HandleFunc("/logoutGoogleExit",GoogleLogin.LogoutGoogleExit)
     
-    
-    //http.ListenAndServe(":8080",nil)
     err := http.ListenAndServe(GetPort(), nil)
     if err != nil {
  	 log.Fatal("ListenAndServe: ", err)
