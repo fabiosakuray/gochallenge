@@ -30,7 +30,7 @@ func Init_var() {
                             "https://www.googleapis.com/auth/userinfo.profile",
         },
         ClientSecret:"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",
-        RedirectURL:"http://localhost:8080/handleGoogleUserInfo",
+        RedirectURL:"https://mysterious-beyond-77658.herokuapp.com/handleGoogleUserInfo",
         Endpoint:     google.Endpoint,   
     }
 }
@@ -63,7 +63,7 @@ func HandleGoogleUserInfo(ww http.ResponseWriter, rr *http.Request) {
 	}
     var ret Message
     json.Unmarshal(content,&ret)
-html_tpl = template.Must(template.ParseGlob("templates/*.html"))
+    html_tpl = template.Must(template.ParseGlob("templates/*.html"))
     html_tpl.ExecuteTemplate(ww,"showGoogleData.html",ret)
         
 }
@@ -94,3 +94,29 @@ func GetUserInfo(state string, code string) ([]byte, error) {
 
 	return contents, nil
 }
+
+/*
+func LogoutGoogleExit(ww http.ResponseWriter, rr *http.Request) {
+	// Get the session service from the request context
+	sessionService, err := getSessionService(rr)
+	if err != nil {
+		http.Error(ww, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Get the user session
+	userSession, err := sessionService.GetUserSession()
+	if err != nil {
+		http.Error(ww, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Delete the access and refresh tokens
+	s.oauthService.ClearUserTokens(userSession)
+
+	// Delete the user session
+	sessionService.ClearUserSession()
+
+	// Redirect back to the login page
+	redirectWithQueryString("/web/login", r.URL.Query(), ww, rr)
+}*/
