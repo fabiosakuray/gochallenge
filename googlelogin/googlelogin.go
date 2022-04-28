@@ -63,7 +63,7 @@ func HandleGoogleUserInfo(ww http.ResponseWriter, rr *http.Request) {
 	}
     var ret Message
     json.Unmarshal(content,&ret)
-    html_tpl = template.Must(template.ParseGlob("templates/*.html"))
+    html_tpl = template.Must(template.ParseGlob("./templates/*.html"))
     html_tpl.ExecuteTemplate(ww,"showGoogleData.html",ret)
         
 }
