@@ -1,0 +1,48 @@
+<!-- #######  YAY, I AM THE SOURCE EDITOR! #########-->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" >
+</head>
+<body>
+<h1 style="color: #5e9ca0;">Golang Challenge</h1><p></p>
+<h2 style="color: #5e9ca0;">Google User Profile</h2>
+      <p>
+                 <strong>This is only a test with Google Sign-In</strong>
+      </p>
+    
+    <div class="container">
+      <div class="jumbotron">
+          <!--<h1 class="text-success  text-center"><span class="fa fa-user"></span> Profile Information</h1>-->
+          <div class="row">
+            <div class="col-sm-6">
+                <div class="well">
+                <img src="anonymous_user.png" width="7%" height="7%">
+                        <p>
+                            <strong>Email</strong>: {{.Email}}<br>
+                            <strong>Name</strong>: {{.Name}}
+                        </p>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+<!--
+<form action="/" method="GET">
+  <button id="reset" type="submit">Logout Google & Exit</button>
+</form>
+-->
+<a href="#" onclick="signOut();">Sign out</a>
+<script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+</script>
+
+</body>
+</html>
