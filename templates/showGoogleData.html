@@ -33,7 +33,7 @@
 <form action="/" method="GET">
   <button id="reset" type="submit">Logout Google & Exit</button>
 </form>
--->
+
 <a href="#" onclick="signOut();">Sign out</a>
 <script>
   function signOut() {
@@ -43,6 +43,22 @@
     });
   }
 </script>
+-->
+
+<a href="#" onclick="signOut();">Sign out novo</a>
+
+<script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        auth2.disconnect();
+      console.log('User signed out.');
+      document.location.href = "REDIRECT LINK";
+    });
+  }
+</script>
+
+
 
 </body>
 </html>
