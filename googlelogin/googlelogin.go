@@ -31,11 +31,11 @@ func Init_var() {
         },
         ClientSecret:"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",
         RedirectURL:"https://mysterious-beyond-77658.herokuapp.com/handleGoogleUserInfo",
-	Endpoint: oauth2.Endpoint{
+/*	Endpoint: oauth2.Endpoint{
 		TokenURL: "https://provider.com/o/oauth2/token",
 		AuthURL:  "https://provider.com/o/oauth2/auth",
-	},
-     //   Endpoint:     google.Endpoint,   
+	},*/
+        Endpoint:     google.Endpoint,   
     }
 }
 
