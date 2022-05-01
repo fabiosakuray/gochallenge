@@ -31,7 +31,11 @@ func Init_var() {
         },
         ClientSecret:"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",
         RedirectURL:"https://mysterious-beyond-77658.herokuapp.com/handleGoogleUserInfo",
-        Endpoint:     google.Endpoint,   
+	Endpoint: oauth2.Endpoint{
+		TokenURL: "https://provider.com/o/oauth2/token",
+		AuthURL:  "https://provider.com/o/oauth2/auth",
+	},
+     //   Endpoint:     google.Endpoint,   
     }
 }
 
@@ -95,10 +99,12 @@ func GetUserInfo(state string, code string) ([]byte, error) {
 	return contents, nil
 }
 
-/*
+
 func LogoutGoogleExit(ww http.ResponseWriter, rr *http.Request) {
 	// Get the session service from the request context
-	sessionService, err := getSessionService(rr)
+	token, err := googleOauthConfig.Exchange(oauth2.NoContext, rr.FormValue("code"))
+
+
 	if err != nil {
 		http.Error(ww, err.Error(), http.StatusInternalServerError)
 		return
@@ -119,4 +125,4 @@ func LogoutGoogleExit(ww http.ResponseWriter, rr *http.Request) {
 
 	// Redirect back to the login page
 	redirectWithQueryString("/web/login", r.URL.Query(), ww, rr)
-}*/
+}

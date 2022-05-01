@@ -9,7 +9,7 @@
 <h1 style="color: #5e9ca0;">Golang Challenge</h1><p></p>
 <h2 style="color: #5e9ca0;">Google User Profile</h2>
       <p>
-      <strong>This is only a test with Google Sign-In</strong>
+      <strong>This is only a test with Google OAuth2.0 Sign-In</strong>
       </p>
     
     <div class="container">
@@ -29,11 +29,11 @@
       </div>
     </div>
 
-<!--
+
 <form action="/" method="GET">
   <button id="reset" type="submit">Logout Google & Exit</button>
 </form>
-
+<!--
 <a href="#" onclick="signOut();">Sign out</a>
 <script>
   function signOut() {
@@ -43,7 +43,7 @@
     });
   }
 </script>
--->
+
 
 <a href="#" onclick="signOut();">Sign out novo</a>
 
@@ -53,11 +53,11 @@
     auth2.signOut().then(function () {
         auth2.disconnect();
       console.log('User signed out.');
-      document.location.href = "REDIRECT LINK";
+      document.location.href = "/";
     });
   }
 </script>
-
+-->
 
 
 </body>
