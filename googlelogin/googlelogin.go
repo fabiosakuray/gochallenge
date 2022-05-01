@@ -99,7 +99,7 @@ func GetUserInfo(state string, code string) ([]byte, error) {
 	return contents, nil
 }
 
-
+/*
 func LogoutGoogleExit(ww http.ResponseWriter, rr *http.Request) {
 	// Get the session service from the request context
 	token, err := googleOauthConfig.Exchange(oauth2.NoContext, rr.FormValue("code"))
@@ -125,4 +125,4 @@ func LogoutGoogleExit(ww http.ResponseWriter, rr *http.Request) {
 
 	// Redirect back to the login page
 	redirectWithQueryString("/web/login", r.URL.Query(), ww, rr)
-}
+}*/
