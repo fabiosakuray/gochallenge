@@ -20,7 +20,7 @@ https://mysterious-beyond-77658.herokuapp.com/
 
 ## Running in your local server 
 
-Make sure you have [Go](http://golang.org/doc/install) version 1.17 
+Make sure you have [Go](http://golang.org/doc/install) version 1.17 or newer.
 
 ```sh
 $ git clone https://github.com/fabiosakuray/gochallenge.git
