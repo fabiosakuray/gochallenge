@@ -18,11 +18,7 @@ https://mysterious-beyond-77658.herokuapp.com/
 
 
 
-Create your Credential in Google 
-
-This application supports the [Getting Started with Go on Heroku](https://devcenter.heroku.com/articles/getting-started-with-go) article - check it out.
-
-## Running in other server 
+## Running in your local server 
 
 Make sure you have [Go](http://golang.org/doc/install) version 1.17 
 
