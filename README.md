@@ -1,49 +1,52 @@
 
-# go-getting-started
+# Go Challenge
 
-A barebones Go app, which can easily be deployed to Heroku.
+A Go app, which can easily be deployed to Heroku.
+
+# Summary
+A user is able to visit a login/signup page that will allow them to login or if they are not an existing user, sign-up as a new user. In either case, the user will have a basic profile information page after sign-up or login, which will also be editable. Also, if the user has forgotten their password, they will be able to get a reset password email link and by following it, be able to reset the password.
+
+# Main characteristics
+
+1)Login with Google account (Google Oauth 2.0 API);
+2)Database: PostgresSQL;
+3)Back-End REST API: only with Golang programming language;
+4)Front-End: Golang and HTML.
+
+# App running in:
+https://mysterious-beyond-77658.herokuapp.com/
+
+
+
+Create your Credential in Google 
 
 This application supports the [Getting Started with Go on Heroku](https://devcenter.heroku.com/articles/getting-started-with-go) article - check it out.
 
-## Running Locally
+## Running in other server 
 
-Make sure you have [Go](http://golang.org/doc/install) version 1.17 or newer and the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed.
-
-```sh
-$ git clone https://github.com/heroku/go-getting-started.git
-$ cd go-getting-started
-$ go build -o bin/go-getting-started -v . # or `go build -o bin/go-getting-started.exe -v .` in git bash
-github.com/mattn/go-colorable
-gopkg.in/bluesuncorp/validator.v5
-golang.org/x/net/context
-github.com/heroku/x/hmetrics
-github.com/gin-gonic/gin/render
-github.com/manucorporat/sse
-github.com/heroku/x/hmetrics/onload
-github.com/gin-gonic/gin/binding
-github.com/gin-gonic/gin
-github.com/heroku/go-getting-started
-$ heroku local
-```
-
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
-## Deploying to Heroku
+Make sure you have [Go](http://golang.org/doc/install) version 1.17 
 
 ```sh
-$ heroku create
-$ git push heroku main
-$ heroku open
+$ git clone https://github.com/fabiosakuray/gochallenge.git
+// To config: 
+// 1) Create your Credential in Google:  config Authorized redirect URIs and Donwload de json credential (change function "Init_Var" in googlelogin.go);
+// 2) Install postgreSQL and create tables (see database folder)
+// 3) If local running, change file main.go (function main):
+//    [remove]
+//    err := http.ListenAndServe(GetPort(), nil)
+//    if err != nil {
+// 	 log.Fatal("ListenAndServe: ", err)
+//    }
+//    
+//   [insert]
+//   http.ListenAndServe(":8080",nil)
+// 
+// 
+
+
+$ go build -o bin/gochallenge -v . 
+
 ```
 
-or
+Your app should now be running on [localhost:8080](http://localhost:8080/).
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-
-## Documentation
-
-For more information about using Go on Heroku, see these Dev Center articles:
-
-- [Go on Heroku](https://devcenter.heroku.com/categories/go)
-# go-meuteste
