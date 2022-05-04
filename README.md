@@ -26,9 +26,10 @@ Make sure you have [Go](http://golang.org/doc/install) version 1.17 or newer.
 ```sh
 $ git clone https://github.com/fabiosakuray/gochallenge.git
 // To config: 
-// 1) Create your Credential in Google:  config Authorized redirect URIs and Donwload de json credential (change function "Init_Var" in googlelogin.go);
-// 2) Install postgreSQL and create tables (see database folder)
-// 3) If local running, change file main.go (function main):
+// 1) Create your Credential in Google:  config "Authorized redirect URIs" and Donwload json with credential (change function "func Init_var()" in googlelogin.go);
+// 2) In funcition "func send" (file main.go), config an email account ("from" and "pass")
+// 3) Install postgreSQL and create tables (see database folder)
+// 4) If local running, change file main.go (function main):
 //    [remove]
 //    err := http.ListenAndServe(GetPort(), nil)
 //    if err != nil {

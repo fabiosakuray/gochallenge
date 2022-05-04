@@ -23,13 +23,13 @@ var (
 /* Google credentials of application  */
 func Init_var() {
     googleOauthConfig = &oauth2.Config{
-        ClientID:"821342726167-brjfbu78abe8mhbg043pum4sff222q0l.apps.googleusercontent.com",
+        ClientID:"-----insert here-------",
         Scopes: []string{
                             "https://www.googleapis.com/auth/userinfo.email",
                             "https://www.googleapis.com/auth/userinfo.profile",
         },
-        ClientSecret:"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",
-        RedirectURL:"https://mysterious-beyond-77658.herokuapp.com/handleGoogleUserInfo",
+        ClientSecret:"---------insert here----------",
+        RedirectURL:"----------insert here----------",
         Endpoint:     google.Endpoint,   
     }
 }

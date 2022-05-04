@@ -232,8 +232,8 @@ func sendEmail (w http.ResponseWriter, r *http.Request){
 
 
 func send(body string , to string , currentTime string , deadline string) {
-	from := "fabio1.londrina@gmail.com"
-	pass := "nusmacmfqcxssktc"
+	from := "bla bla bla@gmail.com"
+	pass := "password"
  
 	msg := "From: " + from + "\n" +
 		"To: " + to + "\n" +
