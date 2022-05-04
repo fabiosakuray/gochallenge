@@ -9,7 +9,9 @@ import (
             "os"
 	_ "github.com/lib/pq"
 )
-/* Open mysql db connection */
+/* Open mysql db connection 
+Change SQL queries to mysql sintaxe.
+*/
 /*func DBConn() (db *sql.DB) {
     dbDriver := "mysql"
     dbUser := "testedb"

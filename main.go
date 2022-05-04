@@ -76,7 +76,7 @@ func main() {
     
     http.HandleFunc("/handleGoogleLogin",GoogleLogin.HandleGoogleLogin)
     http.HandleFunc("/handleGoogleUserInfo",GoogleLogin.HandleGoogleUserInfo)
-   // http.HandleFunc("/logoutGoogleExit",GoogleLogin.LogoutGoogleExit)
+
     
     err := http.ListenAndServe(GetPort(), nil)
     if err != nil {
@@ -144,12 +144,7 @@ func processNewPass (w http.ResponseWriter, r *http.Request){
     id := tag.UserId
     tmp_user_pass,_ := Lib.HashPassword(npa)
     db := Lib.DBConn()
-     db.QueryRow("UPDATE user_table SET user_pass=$1 WHERE user_id=$2",tmp_user_pass, id)
-     /*
-    if err != nil {
-               panic(err.Error())
-    }
-    */
+    db.QueryRow("UPDATE user_table SET user_pass=$1 WHERE user_id=$2",tmp_user_pass, id)
     
     //insForm.Exec(tmp_user_pass, id )
 
@@ -226,16 +221,8 @@ func sendEmail (w http.ResponseWriter, r *http.Request){
             
             send(url, email, currentTime.Format("2006-01-02 03:04:05 PM"), deadline.Format("2006-01-02 03:04:05 PM"))
             
-            
-	//userSql := "INSERT into reset_table (user_id, res_key, res_exp_date ) VALUES($1,$2,$3)"
     	db.QueryRow("INSERT into reset_table (user_id, res_key, res_exp_date ) VALUES($1,$2,$3)", id, key,deadlineStr)
-/*
-        if err != nil {
-            panic(err.Error())
-        }            
-            
-*/
-           // insForm.Exec(id, key,deadlineStr)
+
 
     }
     defer db.Close()
@@ -289,22 +276,8 @@ func procNewUser (w http.ResponseWriter, r *http.Request){
     if len(newUser.UserLogin)>0 && len(tmp_user_pass)>0{
             newUser.UserPass,_ = Lib.HashPassword(tmp_user_pass)
             db := Lib.DBConn()            
-/*            insForm, err := db.Prepare("INSERT into user_table (user_login, user_pass,user_name,user_email,user_address,user_telephone) VALUES(?,?,?,?,?,?)")
-                if err != nil {
-                    panic(err.Error())
-                }
-            insForm.Exec(newUser.UserLogin, newUser.UserPass, newUser.UserName, newUser.UserEmail, newUser.UserAddress,newUser.UserTelephone)*/
-            //  err :=
-               db.QueryRow("INSERT INTO user_table (user_login, user_pass, user_name, user_email, user_address, user_telephone) VALUES($1, $2, $3, $4, $5, $6)", newUser.UserLogin, newUser.UserPass, newUser.UserName, newUser.UserEmail, newUser.UserAddress,newUser.UserTelephone)
-               
-              
-               
-               
-	/*if err != nil {
-	        return 
-	  }
-            */
-	//log.Println(">> procnewuser: insform:", insForm)
+
+            db.QueryRow("INSERT INTO user_table (user_login, user_pass, user_name, user_email, user_address, user_telephone) VALUES($1, $2, $3, $4, $5, $6)", newUser.UserLogin, newUser.UserPass, newUser.UserName, newUser.UserEmail, newUser.UserAddress,newUser.UserTelephone)
 
             defer db.Close()
             http.Redirect(w, r, "/", http.StatusSeeOther)
@@ -321,10 +294,7 @@ func editData (w http.ResponseWriter, r *http.Request){
     db := Lib.DBConn()
     userSql := "UPDATE user_table SET user_name=$1, user_email=$2, user_address=$3,user_telephone=$4 WHERE user_id=$5"
     _ = db.QueryRow(userSql, tag.UserName, tag.UserEmail,tag.UserAddress, tag.UserTelephone, tag.UserId)
-    //insForm, err := db.Prepare("UPDATE user_table SET user_name=?, user_email=?, user_address=?,user_telephone=? WHERE user_id=?")
-/*        if err != nil {
-            panic(err.Error())
-        }*/
+
     // insForm.Exec(tag.UserName, tag.UserEmail,tag.UserAddress, tag.UserTelephone, tag.UserId )
      defer db.Close()
      tpl.ExecuteTemplate(w,"menuEdit.html",nil)

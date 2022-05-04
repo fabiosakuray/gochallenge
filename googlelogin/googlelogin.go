@@ -7,7 +7,6 @@ import (
             "net/http"
             "fmt"
             Lib "gochallenge/lib"
-            //"log"
             "html/template"
             "io/ioutil"
 )
@@ -31,10 +30,6 @@ func Init_var() {
         },
         ClientSecret:"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",
         RedirectURL:"https://mysterious-beyond-77658.herokuapp.com/handleGoogleUserInfo",
-/*	Endpoint: oauth2.Endpoint{
-		TokenURL: "https://provider.com/o/oauth2/token",
-		AuthURL:  "https://provider.com/o/oauth2/auth",
-	},*/
         Endpoint:     google.Endpoint,   
     }
 }
@@ -99,30 +94,3 @@ func GetUserInfo(state string, code string) ([]byte, error) {
 	return contents, nil
 }
 
-/*
-func LogoutGoogleExit(ww http.ResponseWriter, rr *http.Request) {
-	// Get the session service from the request context
-	token, err := googleOauthConfig.Exchange(oauth2.NoContext, rr.FormValue("code"))
-
-
-	if err != nil {
-		http.Error(ww, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	// Get the user session
-	userSession, err := sessionService.GetUserSession()
-	if err != nil {
-		http.Error(ww, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	// Delete the access and refresh tokens
-	s.oauthService.ClearUserTokens(userSession)
-
-	// Delete the user session
-	sessionService.ClearUserSession()
-
-	// Redirect back to the login page
-	redirectWithQueryString("/web/login", r.URL.Query(), ww, rr)
-}*/
